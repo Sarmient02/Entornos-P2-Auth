@@ -1,0 +1,7 @@
+require('dotenv').config({path: '../../.env'});
+
+module.exports = {
+    secret: process.env.SECRET_KEY,
+    jwtExpiration: process.env.JWT_EXPIRATION,
+    jwtRefreshExpiration: process.env.JWT_REFRESH_EXPIRATION,
+};
