@@ -1,5 +1,5 @@
 {
-  "name": "pruebanode",
+  "name": "entornos-p2-auth",
   "version": "1.0.0",
   "description": "jwt demo",
   "main": "server.js",
