@@ -6,6 +6,7 @@ const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const crypto = require('crypto');
 
 exports.signup = (req, res) => {
   // Save User to Database
@@ -65,8 +66,9 @@ exports.signin = (req, res) => {
         });
       }
 
-      const token = jwt.sign({ id: user.id, username: user.username }, config.secret, {
-        expiresIn: config.jwtExpiration
+      const token = jwt.sign({id: user.id, sub: user.username }, config.secret, {
+        expiresIn: config.jwtExpiration,
+        algorithm: 'HS256',
       });
 
       let refreshToken = await RefreshToken.createToken(user);
@@ -74,7 +76,7 @@ exports.signin = (req, res) => {
       let authorities = [];
       user.getRoles().then(roles => {
         for (let i = 0; i < roles.length; i++) {
-          authorities.push("ROLE_" + roles[i].name.toUpperCase());
+          authorities.push(roles[i].name);
         }
 
         res.status(200).send({
@@ -122,6 +124,7 @@ exports.refreshToken = async (req, res) => {
     const user = await refreshToken.getUser();
     let newAccessToken = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: config.jwtExpiration,
+      algorithm: 'HS256',
     });
 
     return res.status(200).json({
