@@ -58,7 +58,7 @@ function initial() {
 }*/
 
 
-db.sequelize.sync().then(() => {
+/*db.sequelize.sync().then(() => {
     console.log('Drop and Resync Db');
     initial();
 });
@@ -77,8 +77,8 @@ function initial() {
       id: 3,
       name: "admin"
     });
-}
+}*/
 
 
-// db.sequelize.sync();
+db.sequelize.sync();
   
