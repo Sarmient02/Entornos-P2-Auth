@@ -65,7 +65,7 @@ exports.signin = (req, res) => {
         });
       }
 
-      const token = jwt.sign({ id: user.id }, config.secret, {
+      const token = jwt.sign({ id: user.id, username: user.username }, config.secret, {
         expiresIn: config.jwtExpiration
       });
 
@@ -130,5 +130,16 @@ exports.refreshToken = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).send({ message: err });
+  }
+};
+
+exports.signout = async (req, res) => {
+  try {
+    req.session = null;
+    return res.status(200).send({
+      message: "You've been signed out!"
+    });
+  } catch (err) {
+    this.next(err);
   }
 };
