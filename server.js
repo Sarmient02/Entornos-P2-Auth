@@ -5,10 +5,12 @@ require('dotenv').config({path: './.env'});
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:4200",
+  credentials: true
 };
 
 app.use(cors(corsOptions));
+
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -34,7 +36,7 @@ app.listen(PORT, () => {
 const db = require("./app/models");
 const Role = db.role;
 
-/*db.sequelize.sync({force: true}).then(() => {
+/*bb.sequelize.sync({force: true}).then(() => {
     console.log('Drop and Resync Db');
     initial();
 });
@@ -53,8 +55,8 @@ function initial() {
       id: 3,
       name: "admin"
     });
-}
-*/
+}*/
+
 
 /*db.sequelize.sync().then(() => {
     console.log('Drop and Resync Db');

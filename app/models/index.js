@@ -8,13 +8,21 @@ const sequelize = new Sequelize(
   {
     host: config.HOST,
     dialect: config.dialect,
+    schema: config.SCHEMA,
+    ssl: true,
     pool: {
       max: config.pool.max,
       min: config.pool.min,
       acquire: config.pool.acquire,
       idle: config.pool.idle
+    },
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
     }
-  }
+}
 );
 
 const db = {};
